@@ -1,6 +1,9 @@
 from PIL import Image, ImageFont, ImageDraw
 import textwrap
 
+import tkinter as tk
+from tkinter import filedialog
+
 
 def write_text(text_to_write, image_size):
 	"""writes text to an RGB image"""
@@ -17,7 +20,7 @@ def write_text(text_to_write, image_size):
 	return image_text
 
 
-def encode_image(encode_text, imageToEncode="chi.jpg"):
+def encode_image(encode_text, imageToEncode):
 	"""encodes a hidden message in a selected image"""
 	imageToEncode = Image.open(imageToEncode)
 	red_pixels = imageToEncode.split()[0]
@@ -71,8 +74,16 @@ def decode_image(imageToDecode="encoded_image.png"):
 	decoded_image.save("decoded_image.png")
 	print("Done decoding")
 
+def main():
+	root = tk.Tk()
+	root.withdraw()
+	imageFileName = filedialog.askopenfilename()
+
+	message = input(print("Enter a message: "))
+	encode_image(message, imageFileName)
+	decode_image()
+
 
 
 if __name__ == '__main__':
-	# encode_image("This is computer security!!!")
-	decode_image()
+	main()
